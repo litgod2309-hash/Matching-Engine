@@ -1,10 +1,11 @@
 body {
   margin: 0;
   font-family: Arial, sans-serif;
-  background-color: #ffffff;
+  background: #ffffff;
+  color: #111;
 }
 
-/* Main container */
+/* Layout */
 .app-container {
   max-width: 900px;
   margin: 40px auto;
@@ -16,61 +17,115 @@ body {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  border-bottom: 1px solid #ccc;
+  margin-bottom: 30px;
+  border-bottom: 1px solid #ddd;
   padding-bottom: 10px;
-  margin-bottom: 20px;
+}
+
+.navbar-left {
+  font-weight: bold;
+}
+
+.navbar-right {
+  display: flex;
+  align-items: center;
+  gap: 10px;
 }
 
 /* Headings */
-h1, h2, h3 {
-  margin: 10px 0;
+.page-title {
+  font-size: 28px;
+  font-weight: bold;
 }
 
-/* Card layout */
+.page-subtitle {
+  font-size: 14px;
+  color: #666;
+  margin-bottom: 20px;
+}
+
+/* Cards */
 .card {
   border: 1px solid #ddd;
   padding: 20px;
   margin-bottom: 20px;
-  border-radius: 8px;
 }
 
-/* Form layout */
+.card-header {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 15px;
+}
+
+.card-title {
+  font-weight: bold;
+}
+
+.card-badge {
+  font-size: 13px;
+  color: #666;
+}
+
+/* Form */
 .form-row {
   display: flex;
   gap: 10px;
-  margin-top: 10px;
 }
 
-/* Inputs */
 input, select {
   padding: 8px;
   border: 1px solid #ccc;
-  border-radius: 4px;
   flex: 1;
 }
 
-/* Button */
 button {
-  padding: 8px 16px;
-  border: 1px solid #000;
+  padding: 8px 12px;
+  border: 1px solid #111;
   background: white;
   cursor: pointer;
-  border-radius: 4px;
 }
 
 button:hover {
-  background: #f5f5f5;
+  background: #f2f2f2;
 }
 
-/* Orders list */
+/* Order Table */
+.order-list-header {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  font-size: 13px;
+  color: #666;
+  border-bottom: 1px solid #ddd;
+  padding-bottom: 8px;
+  margin-bottom: 5px;
+}
+
 .order-list {
   list-style: none;
   padding: 0;
 }
 
 .order-item {
-  padding: 10px;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  padding: 10px 0;
   border-bottom: 1px solid #eee;
-  display: flex;
-  justify-content: space-between;
+}
+
+.order-type {
+  font-weight: 500;
+}
+
+.order-price {
+  text-align: center;
+}
+
+.order-qty {
+  text-align: right;
+}
+
+.order-empty {
+  text-align: center;
+  padding: 20px;
+  color: #777;
 }
