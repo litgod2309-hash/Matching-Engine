@@ -847,3 +847,54 @@ body {
   .db-search     { display: none; }
   .db-stock-trigger-name { display: none; }
 }
+
+/* Market Overview Search */
+.db-market-search {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 16px;
+  padding: 0 12px;
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
+  background-color: #f9fafb;
+}
+
+.db-market-search-input {
+  flex: 1;
+  border: none;
+  background: transparent;
+  outline: none;
+  padding: 10px 4px;
+  font-size: 14px;
+  color: #111827;
+}
+
+.db-market-search-input::placeholder {
+  color: #9ca3af;
+}
+
+.db-market-search .db-search-icon {
+  width: 16px;
+  height: 16px;
+  color: #6b7280;
+  flex-shrink: 0;
+}
+
+/* Clickable row styling */
+.db-clickable-row {
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.db-clickable-row:hover {
+  background-color: #f3f4f6;
+}
+
+.db-clickable-row td {
+  transition: color 0.2s ease;
+}
+
+.db-clickable-row:hover td {
+  color: #1f2937;
+}

@@ -1,0 +1,445 @@
+/* Stock Detail Page */
+.sd-root {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  background-color: #f3f4f6;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+}
+
+/* ── Navbar ─────────────────────────────────────────── */
+.sd-navbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 24px;
+  height: 64px;
+  background: white;
+  border-bottom: 1px solid #e5e7eb;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+}
+
+.sd-nav-left {
+  flex: 1;
+}
+
+.sd-back-btn {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 12px;
+  border: none;
+  background-color: #f3f4f6;
+  color: #1f2937;
+  border-radius: 6px;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.sd-back-btn:hover {
+  background-color: #e5e7eb;
+}
+
+.sd-back-btn svg {
+  width: 18px;
+  height: 18px;
+}
+
+.sd-nav-center {
+  flex: 1;
+  text-align: center;
+}
+
+.sd-page-title {
+  font-size: 20px;
+  font-weight: 600;
+  color: #1f2937;
+  margin: 0;
+}
+
+.sd-nav-right {
+  flex: 1;
+  display: flex;
+  justify-content: flex-end;
+  position: relative;
+}
+
+.sd-avatar {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background-color: #1f2937;
+  color: white;
+  border: none;
+  font-weight: 600;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+}
+
+.sd-avatar:hover {
+  background-color: #111827;
+}
+
+/* ── Dropdown ────────────────────────────────────── */
+.sd-profile-wrap {
+  position: relative;
+}
+
+.sd-dropdown {
+  position: absolute;
+  top: 100%;
+  right: 0;
+  margin-top: 8px;
+  background: white;
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+  z-index: 1000;
+  min-width: 200px;
+}
+
+.sd-dropdown-user {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 16px;
+}
+
+.sd-dropdown-avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background-color: #1f2937;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 600;
+  flex-shrink: 0;
+}
+
+.sd-dropdown-name {
+  font-weight: 600;
+  color: #1f2937;
+}
+
+.sd-dropdown-role {
+  font-size: 12px;
+  color: #6b7280;
+}
+
+.sd-dropdown-divider {
+  height: 1px;
+  background-color: #e5e7eb;
+  margin: 8px 0;
+}
+
+.sd-logout-btn {
+  width: 100%;
+  padding: 10px 16px;
+  border: none;
+  background: transparent;
+  color: #ef4444;
+  text-align: left;
+  cursor: pointer;
+  font-size: 14px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  transition: all 0.2s ease;
+}
+
+.sd-logout-btn:hover {
+  background-color: #fee2e2;
+}
+
+.sd-logout-btn svg {
+  width: 16px;
+  height: 16px;
+}
+
+/* ── Main Content ────────────────────────────────── */
+.sd-main {
+  flex: 1;
+  padding: 24px;
+  max-width: 1200px;
+  margin: 0 auto;
+  width: 100%;
+}
+
+/* ── Cards ──────────────────────────────────────── */
+.sd-card {
+  background: white;
+  border-radius: 8px;
+  border: 1px solid #e5e7eb;
+  margin-bottom: 20px;
+  overflow: hidden;
+}
+
+.sd-card-header {
+  padding: 16px 20px;
+  border-bottom: 1px solid #e5e7eb;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.sd-card-title {
+  font-size: 16px;
+  font-weight: 600;
+  color: #1f2937;
+}
+
+.sd-badge {
+  font-size: 12px;
+  font-weight: 600;
+  padding: 4px 10px;
+  border-radius: 12px;
+  background-color: #f3f4f6;
+  color: #6b7280;
+}
+
+.sd-card-body {
+  padding: 20px;
+}
+
+/* ── Header Card ────────────────────────────────– */
+.sd-header-card {
+  border: none;
+  background: linear-gradient(135deg, #1f2937 0%, #111827 100%);
+}
+
+.sd-header-card .sd-card-header {
+  border-bottom: none;
+  padding: 0;
+}
+
+.sd-stock-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  padding: 24px;
+  gap: 24px;
+}
+
+.sd-stock-title {
+  flex: 1;
+}
+
+.sd-stock-name {
+  font-size: 28px;
+  font-weight: 700;
+  color: white;
+  margin: 0;
+}
+
+.sd-stock-price-section {
+  display: flex;
+  gap: 32px;
+  align-items: flex-end;
+  flex-wrap: wrap;
+}
+
+.sd-price-main {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.sd-price-label {
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: #9ca3af;
+  font-weight: 600;
+}
+
+.sd-price-label.bid-label {
+  color: #4ade80;
+}
+
+.sd-price-label.ask-label {
+  color: #f87171;
+}
+
+.sd-price-value {
+  font-size: 24px;
+  font-weight: 700;
+  color: white;
+}
+
+.sd-price-value.bid {
+  color: #4ade80;
+}
+
+.sd-price-value.ask {
+  color: #f87171;
+}
+
+.sd-price-value.spread {
+  color: #fbbf24;
+  font-size: 20px;
+}
+
+/* ── Chart Container ────────────────────────────– */
+.sd-chart-container {
+  width: 100%;
+  height: 320px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #f9fafb;
+  border-radius: 8px;
+}
+
+/* ── Table ──────────────────────────────────────– */
+.sd-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 14px;
+}
+
+.sd-table thead tr {
+  border-bottom: 1px solid #e5e7eb;
+  background: #f9fafb;
+}
+
+.sd-table th {
+  text-align: left;
+  padding: 10px 12px;
+  font-size: 12px;
+  font-weight: 600;
+  color: #6b7280;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+.sd-table td {
+  padding: 12px;
+  color: #1f2937;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.sd-table tbody tr:hover {
+  background: #f9fafb;
+}
+
+.sd-table tbody tr:last-child td {
+  border-bottom: none;
+}
+
+.sd-mono {
+  font-variant-numeric: tabular-nums;
+  font-family: monospace;
+}
+
+.sd-time {
+  font-size: 12px;
+  color: #6b7280;
+}
+
+.sd-type {
+  display: inline-block;
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-weight: 600;
+  font-size: 11px;
+}
+
+.sd-type.buy {
+  background: rgba(34, 197, 94, 0.1);
+  color: #16a34a;
+}
+
+.sd-user {
+  font-size: 13px;
+  color: #4b5563;
+}
+
+/* ── Placeholder ────────────────────────────────– */
+.sd-placeholder {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 150px;
+  background-color: #f9fafb;
+  border-radius: 6px;
+  border: 1px dashed #d1d5db;
+}
+
+.sd-placeholder p {
+  color: #6b7280;
+  font-size: 14px;
+}
+
+/* ── Not Found ──────────────────────────────────– */
+.sd-not-found {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 400px;
+  text-align: center;
+}
+
+.sd-not-found p {
+  font-size: 16px;
+  color: #6b7280;
+}
+
+.loading {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  font-size: 16px;
+  color: #6b7280;
+}
+
+/* ── Responsive ────────────────────────────────– */
+@media (max-width: 768px) {
+  .sd-navbar {
+    padding: 0 16px;
+  }
+
+  .sd-nav-center {
+    display: none;
+  }
+
+  .sd-main {
+    padding: 16px;
+  }
+
+  .sd-stock-header {
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  .sd-stock-price-section {
+    width: 100%;
+    gap: 16px;
+  }
+
+  .sd-stock-name {
+    font-size: 24px;
+  }
+
+  .sd-price-value {
+    font-size: 20px;
+  }
+
+  .sd-table {
+    font-size: 12px;
+  }
+
+  .sd-table th,
+  .sd-table td {
+    padding: 8px;
+  }
+}
