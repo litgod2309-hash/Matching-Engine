@@ -75,7 +75,7 @@ class RedBlackTree {
   _fixInsert(node) {
     while (node.parent && node.parent.color === "RED") {
       if (node.parent === node.parent.parent?.left) {
-        const uncle = node.parent.parent.right;
+        const uncle = node.parent.parent?.right;
 
         if (uncle && uncle.color === "RED") {
           node.parent.color = "BLACK";
@@ -87,6 +87,8 @@ class RedBlackTree {
             node = node.parent;
             this._rotateLeft(node);
           }
+          // Guard: after rotation, parent.parent may have changed
+          if (!node.parent || !node.parent.parent) break;
           node.parent.color = "BLACK";
           node.parent.parent.color = "RED";
           this._rotateRight(node.parent.parent);
@@ -104,6 +106,8 @@ class RedBlackTree {
             node = node.parent;
             this._rotateRight(node);
           }
+          // Guard: after rotation, parent.parent may have changed
+          if (!node.parent || !node.parent.parent) break;
           node.parent.color = "BLACK";
           node.parent.parent.color = "RED";
           this._rotateLeft(node.parent.parent);

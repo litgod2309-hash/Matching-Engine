@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { orderAPI } from "../services/api";
 import "../styles/OrderForm.css";
+import { saveOrders, getOrders } from "../services/storage";
 
 export default function OrderForm({
   setOrders,
@@ -20,7 +21,6 @@ export default function OrderForm({
     setError("");
     setSuccess("");
 
-    // Validation
     if (!selectedStock) {
       setError("Please select a stock");
       return;
@@ -54,24 +54,49 @@ export default function OrderForm({
       );
 
       if (result.success || result.transactions.length > 0) {
+        const newOrder = {
+          type: orderType,
+          price:
+            orderMode === "LIMIT" ? parseFloat(price) : selectedStock.price,
+          quantity: parseInt(quantity),
+          symbol: selectedStock.sym,
+          timestamp: new Date().toISOString(),
+          mode: orderMode,
+        };
+
+        const existingOrders = getOrders();
+        saveOrders([...existingOrders, newOrder]);
+
         setSuccess(
           `Order ${orderMode === "MARKET" ? "matched" : "placed"}! ${result.transactions.length} transaction(s) completed.`,
         );
         setPrice("");
         setQuantity("");
 
-        // Notify parent
         if (onOrderPlaced) {
-          onOrderPlaced(result);
+          onOrderPlaced(newOrder);
         }
       } else if (result.remainingQuantity > 0 && orderMode === "LIMIT") {
+        const newOrder = {
+          type: orderType,
+          price: parseFloat(price),
+          quantity: result.remainingQuantity,
+          symbol: selectedStock.sym,
+          timestamp: new Date().toISOString(),
+          mode: orderMode,
+        };
+
+        const existingOrders = getOrders();
+        saveOrders([...existingOrders, newOrder]);
+
         setSuccess(
           `Limit order placed for ${result.remainingQuantity} shares (partial match)`,
         );
         setPrice("");
         setQuantity("");
+
         if (onOrderPlaced) {
-          onOrderPlaced(result);
+          onOrderPlaced(newOrder);
         }
       } else {
         setError("No matching orders found for market order");
@@ -87,92 +112,95 @@ export default function OrderForm({
 
   return (
     <div className="order-form-container">
-      {/* Order Type Selection */}
-      <div className="form-section">
-        <label className="form-label">Order Type</label>
-        <div className="order-type-buttons">
-          <button
-            className={`type-btn ${orderType === "BUY" ? "active buy" : ""}`}
-            onClick={() => setOrderType("BUY")}
-            disabled={loading}
-          >
-            BUY
-          </button>
-          <button
-            className={`type-btn ${orderType === "SELL" ? "active sell" : ""}`}
-            onClick={() => setOrderType("SELL")}
-            disabled={loading}
-          >
-            SELL
-          </button>
-        </div>
-      </div>
-
-      {/* Order Mode Selection */}
-      <div className="form-section">
-        <label className="form-label">Order Mode</label>
-        <div className="order-mode-buttons">
-          <button
-            className={`mode-btn ${orderMode === "MARKET" ? "active" : ""}`}
-            onClick={() => setOrderMode("MARKET")}
-            disabled={loading}
-          >
-            MARKET
-            <span className="mode-desc">Instant execution</span>
-          </button>
-          <button
-            className={`mode-btn ${orderMode === "LIMIT" ? "active" : ""}`}
-            onClick={() => setOrderMode("LIMIT")}
-            disabled={loading}
-          >
-            LIMIT
-            <span className="mode-desc">Price specified</span>
-          </button>
-        </div>
-      </div>
-
-      {/* Quantity Input */}
-      <div className="form-section">
-        <label className="form-label">Quantity (shares)</label>
-        <input
-          type="number"
-          className="form-input"
-          placeholder="Enter quantity"
-          value={quantity}
-          onChange={(e) => setQuantity(e.target.value)}
-          disabled={loading}
-          min="1"
-        />
-      </div>
-
-      {/* Price Input - Only for Limit Orders */}
-      {orderMode === "LIMIT" && (
+      {/* ── Top Row: Order Type + Order Mode ── */}
+      <div className="order-form-top-row">
+        {/* Order Type Selection */}
         <div className="form-section">
-          <label className="form-label">Limit Price ($)</label>
-          <div className="price-input-wrapper">
-            <input
-              type="number"
-              className="form-input"
-              placeholder="Enter limit price"
-              value={price}
-              onChange={(e) => setPrice(e.target.value)}
+          <label className="form-label">Order Type</label>
+          <div className="order-type-buttons">
+            <button
+              className={`type-btn ${orderType === "BUY" ? "active buy" : ""}`}
+              onClick={() => setOrderType("BUY")}
               disabled={loading}
-              step="0.01"
-              min="0.01"
-            />
-            {selectedStock && (
-              <span className="market-price-hint">
-                Current: $
-                {selectedStock.lastTradedPrice
-                  ? selectedStock.lastTradedPrice.toFixed(2)
-                  : "N/A"}
-              </span>
-            )}
+            >
+              BUY
+            </button>
+            <button
+              className={`type-btn ${orderType === "SELL" ? "active sell" : ""}`}
+              onClick={() => setOrderType("SELL")}
+              disabled={loading}
+            >
+              SELL
+            </button>
           </div>
         </div>
-      )}
 
-      {/* Selected Stock Info */}
+        {/* Order Mode Selection */}
+        <div className="form-section">
+          <label className="form-label">Order Mode</label>
+          <div className="order-mode-buttons">
+            <button
+              className={`mode-btn ${orderMode === "MARKET" ? "active" : ""}`}
+              onClick={() => setOrderMode("MARKET")}
+              disabled={loading}
+            >
+              MARKET
+              <span className="mode-desc">Instant execution</span>
+            </button>
+            <button
+              className={`mode-btn ${orderMode === "LIMIT" ? "active" : ""}`}
+              onClick={() => setOrderMode("LIMIT")}
+              disabled={loading}
+            >
+              LIMIT
+              <span className="mode-desc">Price specified</span>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      {/* ── Middle Row: Quantity + Price (Conditional) ── */}
+      <div className="order-form-inputs-row">
+        {/* Quantity Input */}
+        <div className="form-section">
+          <label className="form-label">Quantity (shares)</label>
+          <input
+            type="number"
+            className="form-input"
+            placeholder="Enter quantity"
+            value={quantity}
+            onChange={(e) => setQuantity(e.target.value)}
+            disabled={loading}
+            min="1"
+          />
+        </div>
+
+        {/* Price Input - Only for Limit Orders */}
+        {orderMode === "LIMIT" && (
+          <div className="form-section">
+            <label className="form-label">Limit Price ($)</label>
+            <div className="price-input-wrapper">
+              <input
+                type="number"
+                className="form-input"
+                placeholder="Enter limit price"
+                value={price}
+                onChange={(e) => setPrice(e.target.value)}
+                disabled={loading}
+                step="0.01"
+                min="0.01"
+              />
+              {selectedStock && (
+                <span className="market-price-hint">
+                  Current: ${selectedStock.price?.toFixed(2) || "N/A"}
+                </span>
+              )}
+            </div>
+          </div>
+        )}
+      </div>
+
+      {/* ── Selected Stock Info (Compact Inline) ── */}
       {selectedStock && (
         <div className="stock-info">
           <div className="info-item">
@@ -182,10 +210,7 @@ export default function OrderForm({
           <div className="info-item">
             <span className="info-label">Last Price:</span>
             <span className="info-value">
-              $
-              {selectedStock.lastTradedPrice
-                ? selectedStock.lastTradedPrice.toFixed(2)
-                : "N/A"}
+              ${selectedStock.price?.toFixed(2) || "N/A"}
             </span>
           </div>
           {selectedStock.bestBid && (
