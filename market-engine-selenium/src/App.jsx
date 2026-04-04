@@ -1,10 +1,19 @@
-import { useState } from "react";
-import "./App.css";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import Login from "./pages/Login";
+import Dashboard from "./pages/Dashboard";
+import { getCurrentUser } from "./services/storage";
 
 function App() {
-  const [count, setCount] = useState(0);
+  const user = getCurrentUser();
 
-  return <></>;
+  return (
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<Login />} />
+        <Route path="/dashboard" element={user ? <Dashboard /> : <Login />} />
+      </Routes>
+    </BrowserRouter>
+  );
 }
 
 export default App;
