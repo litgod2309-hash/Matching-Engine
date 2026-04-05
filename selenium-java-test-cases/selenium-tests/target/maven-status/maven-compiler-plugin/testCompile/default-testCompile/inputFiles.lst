@@ -1,1 +1,7 @@
-/Users/mayankjha/Desktop/M.Tech/Sem-2/Software Engineering/Selenium/selenium-java-test-cases/selenium-tests/src/test/java/com/test/BasicTest.java
+/Users/mayankjha/Desktop/M.Tech/Sem-2/Software Engineering/Selenium/selenium-java-test-cases/selenium-tests/src/test/java/com/test/TestApplicationLoading.java
+/Users/mayankjha/Desktop/M.Tech/Sem-2/Software Engineering/Selenium/selenium-java-test-cases/selenium-tests/src/test/java/com/test/TestEmptyFieldValidation.java
+/Users/mayankjha/Desktop/M.Tech/Sem-2/Software Engineering/Selenium/selenium-java-test-cases/selenium-tests/src/test/java/com/test/TestInvalidCredentials.java
+/Users/mayankjha/Desktop/M.Tech/Sem-2/Software Engineering/Selenium/selenium-java-test-cases/selenium-tests/src/test/java/com/test/TestLoginBehavior.java
+/Users/mayankjha/Desktop/M.Tech/Sem-2/Software Engineering/Selenium/selenium-java-test-cases/selenium-tests/src/test/java/com/test/TestLoginBehaviour.java
+/Users/mayankjha/Desktop/M.Tech/Sem-2/Software Engineering/Selenium/selenium-java-test-cases/selenium-tests/src/test/java/com/test/TestLoginPageElements.java
+/Users/mayankjha/Desktop/M.Tech/Sem-2/Software Engineering/Selenium/selenium-java-test-cases/selenium-tests/src/test/java/com/test/TestMaliciousInput.java
